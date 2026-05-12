@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.hidden);
+
+  // Build ordered list so we can compute prev/next
+  projects.sort((a, b) => {
+    const orderA = a.data.order ?? Infinity;
+    const orderB = b.data.order ?? Infinity;
+    if (orderA !== orderB) return orderA - orderB;
+    const yearA = a.data.year ?? '';
+    const yearB = b.data.year ?? '';
+    return yearB.localeCompare(yearA);
+  });
+
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      prev: i > 0 ? projects[i - 1] : null,
+      next: i < projects.length - 1 ? projects[i + 1] : null,
+    },
+  }));
+}
+
+const { project, prev, next } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} pageType="project" description={project.data.description}>
+  <article class="project">
+    <header class="project-header">
+      <h1 class="project-title">{project.data.title}</h1>
+      {project.data.year && (
+        <p class="project-meta">{project.data.year}</p>
+      )}
+    </header>
+
+    {project.body && project.body.trim().length > 0 && (
+      <div class="project-description">
+        <Content />
+      </div>
+    )}
+
+    {project.data.images && project.data.images.length > 0 && (
+      <div class="project-images">
+        {project.data.images.map((image) => (
+          <figure class="project-figure">
+            <img src={image.src} alt={image.alt ?? ''} loading="lazy" />
+            {image.caption && <figcaption>{image.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    )}
+
+    <nav class="project-nav" aria-label="Project navigation">
+      <span>
+        {prev ? (
+          <a href={`/projects/${prev.id}`}>← {prev.data.title}</a>
+        ) : (
+          <a href="/">← Index</a>
+        )}
+      </span>
+      <span>
+        {next ? (
+          <a href={`/projects/${next.id}`}>{next.data.title} →</a>
+        ) : (
+          <a href="/">Index →</a>
+        )}
+      </span>
+    </nav>
+  </article>
+</BaseLayout>
