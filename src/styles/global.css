@@ -1,32 +1,30 @@
 /* ===========================================================
    Portfolio — Minimal serif aesthetic
    =========================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&display=swap');
-
+ 
 :root {
   --color-bg: #ffffff;
   --color-text: #111111;
   --color-muted: #777777;
   --color-rule: #e6e6e6;
-
-  --font-serif: 'Fraunces', 'Times New Roman', Georgia, serif;
-
+ 
+  --font-serif: 'Times New Roman', Times, Georgia, serif;
+ 
   --size-step--1: clamp(0.85rem, 0.83rem + 0.1vw, 0.9rem);
   --size-step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   --size-step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
   --size-step-2: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
-
+ 
   --space-xs: 0.5rem;
   --space-s: 1rem;
   --space-m: 2rem;
   --space-l: 4rem;
   --space-xl: 6rem;
-
+ 
   --max-width: 72rem;
   --content-width: 48rem;
 }
-
+ 
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -37,37 +35,36 @@ body, h1, h2, h3, h4, p, figure, blockquote, ul, ol {
 ul, ol { list-style: none; }
 img, picture { max-width: 100%; display: block; }
 button { font: inherit; cursor: pointer; }
-
+ 
 /* Base */
 html {
   font-family: var(--font-serif);
   font-size: var(--size-step-0);
-  font-variation-settings: 'opsz' 14, 'SOFT' 0;
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-
+ 
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
-
+ 
 a {
   color: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
-  transition: opacity 180ms ease;
+  display: inline-block;
 }
-
+ 
 a:hover {
-  opacity: 0.55;
+  font-style: italic;
 }
-
+ 
 /* Layout */
 .site-header {
   padding: var(--space-m) var(--space-m) var(--space-l);
@@ -76,52 +73,51 @@ a:hover {
   align-items: baseline;
   gap: var(--space-m);
 }
-
+ 
 .site-title {
   font-size: var(--size-step-0);
   font-weight: 400;
-  font-variation-settings: 'opsz' 14, 'SOFT' 0;
 }
-
+ 
 .site-title a {
   text-decoration: none;
 }
-
+ 
 .site-nav {
   display: flex;
   gap: var(--space-m);
   font-size: var(--size-step-0);
 }
-
+ 
 .site-nav a {
   text-decoration: none;
 }
-
+ 
 .site-nav a.active {
   font-style: italic;
 }
-
+ 
 main {
   flex: 1;
   padding: 0 var(--space-m) var(--space-xl);
 }
-
+ 
 .site-footer {
   padding: var(--space-l) var(--space-m) var(--space-m);
   font-size: var(--size-step--1);
   color: var(--color-muted);
 }
-
+ 
 /* Homepage / archive */
 .archive {
   max-width: var(--max-width);
 }
-
+ 
 .archive-list {
   display: flex;
   flex-direction: column;
 }
-
+ 
 .archive-item {
   display: flex;
   align-items: baseline;
@@ -129,78 +125,72 @@ main {
   padding: var(--space-s) 0;
   border-top: 1px solid var(--color-rule);
 }
-
+ 
 .archive-item:last-child {
   border-bottom: 1px solid var(--color-rule);
 }
-
+ 
 .archive-item a {
   text-decoration: none;
   flex: 1;
 }
-
-.archive-item a:hover .archive-title {
-  font-style: italic;
-}
-
+ 
 .archive-title {
   font-size: var(--size-step-1);
-  font-variation-settings: 'opsz' 32, 'SOFT' 30;
   font-weight: 400;
 }
-
+ 
 .archive-year {
   font-size: var(--size-step--1);
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
-
+ 
 /* Project page */
 .project {
   max-width: var(--content-width);
   margin: 0 auto;
 }
-
+ 
 .project-header {
   margin-bottom: var(--space-l);
 }
-
+ 
 .project-title {
   font-size: var(--size-step-2);
-  font-variation-settings: 'opsz' 60, 'SOFT' 50;
   font-weight: 400;
   line-height: 1.15;
   margin-bottom: var(--space-xs);
 }
-
+ 
 .project-meta {
   font-size: var(--size-step--1);
   color: var(--color-muted);
 }
-
+ 
 .project-description {
   font-size: var(--size-step-0);
   margin: var(--space-m) 0;
   max-width: 36rem;
 }
-
+ 
 .project-description p + p {
   margin-top: 1em;
 }
-
+ 
 .project-images {
   display: flex;
   flex-direction: column;
   gap: var(--space-m);
 }
-
+ 
 .project-figure figcaption {
   font-size: var(--size-step--1);
   color: var(--color-muted);
   margin-top: var(--space-xs);
   font-style: italic;
 }
-
+ 
 .project-nav {
   margin-top: var(--space-xl);
   padding-top: var(--space-m);
@@ -210,20 +200,20 @@ main {
   gap: var(--space-m);
   font-size: var(--size-step--1);
 }
-
+ 
 /* Info page */
 .info {
   max-width: var(--content-width);
 }
-
+ 
 .info-body {
   font-size: var(--size-step-0);
 }
-
+ 
 .info-body p + p {
   margin-top: 1em;
 }
-
+ 
 .info-body h2 {
   font-size: var(--size-step-0);
   font-weight: 400;
@@ -231,13 +221,13 @@ main {
   margin-top: var(--space-m);
   margin-bottom: var(--space-xs);
 }
-
+ 
 .info-body a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
-
+ 
 /* Mobile */
 @media (max-width: 640px) {
   :root {
@@ -245,17 +235,17 @@ main {
     --space-l: 2.5rem;
     --space-xl: 3.5rem;
   }
-
+ 
   .site-header {
     padding-bottom: var(--space-m);
     flex-wrap: wrap;
   }
-
+ 
   .archive-item {
     gap: var(--space-xs);
   }
 }
-
+ 
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -263,3 +253,4 @@ main {
     animation: none !important;
   }
 }
+ 
