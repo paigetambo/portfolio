@@ -7,4 +7,5 @@ images:
   - src: "/images/basket-1-gif.gif"
     alt: "Rotating view of basket 1"
     caption: "basket 1, 2024. earthenware."
+    width: "400px"
 ---
