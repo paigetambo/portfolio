@@ -41,7 +41,7 @@ const { Content } = await render(project);
     {project.data.images && project.data.images.length > 0 && (
       <div class="project-images">
         {project.data.images.map((image) => (
-          <figure class="project-figure">
+          <figure class="project-figure" style={image.width ? `max-width: ${image.width}` : undefined}>
             <img src={image.src} alt={image.alt ?? ''} loading="lazy" />
             {image.caption && <figcaption>{image.caption}</figcaption>}
           </figure>
