@@ -146,6 +146,7 @@ main {
  
 .project-header {
   margin-bottom: var(--space-l);
+  text-align: center;
 }
  
 .project-title {
@@ -162,7 +163,7 @@ main {
  
 .project-description {
   font-size: var(--size-step-0);
-  margin: var(--space-l) 0 var(--space-m);
+  margin: var(--space-l) auto var(--space-m);
   max-width: 36rem;
 }
  
@@ -173,7 +174,19 @@ main {
 .project-images {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-m);
+}
+ 
+.project-figure {
+  max-width: 100%;
+  margin: 0;
+}
+ 
+.project-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
  
 .project-figure figcaption {
@@ -181,6 +194,7 @@ main {
   color: var(--color-muted);
   margin-top: var(--space-xs);
   font-style: italic;
+  text-align: center;
 }
  
 .project-nav {
