@@ -13,6 +13,8 @@ const projects = defineCollection({
       caption: z.string().optional(),
       width: z.string().optional(),
     })).optional(),
+    thumbnail: z.string().optional(),
+    thumbnail_size: z.enum(['small', 'medium', 'large']).optional().default('medium'),
     order: z.number().optional(),
     hidden: z.boolean().optional().default(false),
   }),
