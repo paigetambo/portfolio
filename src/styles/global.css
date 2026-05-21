@@ -1,5 +1,5 @@
 /* ===========================================================
-   Portfolio — Minimal serif aesthetic
+   Portfolio — Times New Roman, left-justified
    =========================================================== */
  
 :root {
@@ -10,10 +10,11 @@
  
   --font-serif: 'Times New Roman', Times, Georgia, serif;
  
-  --size-step--1: clamp(0.85rem, 0.83rem + 0.1vw, 0.9rem);
-  --size-step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --size-step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
-  --size-step-2: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+  /* Reduced ~12% from previous */
+  --size-step--1: clamp(0.75rem, 0.73rem + 0.08vw, 0.8rem);
+  --size-step-0: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  --size-step-1: clamp(1.05rem, 0.98rem + 0.4vw, 1.25rem);
+  --size-step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
  
   --space-xs: 0.5rem;
   --space-s: 1rem;
@@ -21,7 +22,7 @@
   --space-l: 4rem;
   --space-xl: 6rem;
  
-  --max-width: 72rem;
+  --max-width: 78rem;
   --content-width: 48rem;
 }
  
@@ -43,6 +44,7 @@ html {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.45;
+  text-align: left;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -65,7 +67,7 @@ a:hover {
   font-style: italic;
 }
  
-/* Layout */
+/* Header / Nav / Footer */
 .site-header {
   padding: var(--space-m) var(--space-m) var(--space-l);
   display: flex;
@@ -108,37 +110,71 @@ main {
   color: var(--color-muted);
 }
  
-/* Homepage / archive */
-.archive {
+/* Centered page title (used on Projects, Process, Text pages) */
+.page-title {
+  font-size: var(--size-step-2);
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: var(--space-l);
+}
+ 
+/* === Projects page (homepage) — bucket grid === */
+.projects-page {
   max-width: var(--max-width);
   margin: 0 auto;
 }
  
-.archive-list {
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-l) var(--space-m);
+}
+ 
+.project-grid-item {
+  text-decoration: none;
+  display: block;
+}
+ 
+.project-grid-item--large {
+  flex: 0 0 100%;
+}
+ 
+.project-grid-item--medium {
+  flex: 0 0 calc(50% - var(--space-m) / 2);
+}
+ 
+.project-grid-item--small {
+  flex: 0 0 calc(33.333% - (var(--space-m) * 2 / 3));
+}
+ 
+.project-grid-image {
+  width: 100%;
+  margin-bottom: var(--space-xs);
+}
+ 
+.project-grid-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+ 
+.project-grid-meta {
   display: flex;
   flex-direction: column;
+  gap: 0;
 }
  
-.archive-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  padding: var(--space-s) 0;
+.project-grid-title {
+  font-size: var(--size-step-0);
 }
  
-.archive-title {
-  font-size: var(--size-step-1);
-  font-weight: 400;
-}
- 
-.archive-year {
+.project-grid-year {
   font-size: var(--size-step--1);
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
  
-/* Project page */
+/* === Individual project page — left-justified === */
 .project {
   max-width: var(--content-width);
   margin: 0 auto;
@@ -146,7 +182,7 @@ main {
  
 .project-header {
   margin-bottom: var(--space-l);
-  text-align: center;
+  text-align: left;
 }
  
 .project-title {
@@ -163,8 +199,9 @@ main {
  
 .project-description {
   font-size: var(--size-step-0);
-  margin: var(--space-l) auto var(--space-m);
+  margin: var(--space-l) 0 var(--space-m);
   max-width: 36rem;
+  text-align: left;
 }
  
 .project-description p + p {
@@ -194,7 +231,7 @@ main {
   color: var(--color-muted);
   margin-top: var(--space-xs);
   font-style: italic;
-  text-align: center;
+  text-align: left;
 }
  
 .project-nav {
@@ -206,35 +243,14 @@ main {
   font-size: var(--size-step--1);
 }
  
-/* Info page */
-.info {
-  max-width: var(--content-width);
-}
- 
-.info-body {
-  font-size: var(--size-step-0);
-}
- 
-.info-body p + p {
-  margin-top: 1em;
-}
- 
-.info-body h2 {
-  font-size: var(--size-step-0);
-  font-weight: 400;
-  font-style: italic;
-  margin-top: var(--space-m);
-  margin-bottom: var(--space-xs);
-}
- 
-.info-body a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
-}
- 
 /* Mobile */
-@media (max-width: 640px) {
+@media (max-width: 800px) {
+  .project-grid-item--small {
+    flex: 0 0 calc(50% - var(--space-m) / 2);
+  }
+}
+ 
+@media (max-width: 540px) {
   :root {
     --space-m: 1.25rem;
     --space-l: 2.5rem;
@@ -244,6 +260,15 @@ main {
   .site-header {
     padding-bottom: var(--space-m);
     flex-wrap: wrap;
+  }
+ 
+  .project-grid {
+    gap: var(--space-m);
+  }
+ 
+  .project-grid-item--medium,
+  .project-grid-item--small {
+    flex: 0 0 100%;
   }
 }
  
