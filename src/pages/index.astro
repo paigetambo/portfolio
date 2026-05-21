@@ -25,7 +25,6 @@ function getThumbnail(project: typeof projects[number]): string | null {
  
 <BaseLayout title="Projects" pageType="index">
   <section class="projects-page">
-    <h1 class="page-title">Projects</h1>
     <div class="project-grid">
       {projects.map((project) => {
         const thumbnail = getThumbnail(project);
