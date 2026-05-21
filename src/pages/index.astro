@@ -1,10 +1,10 @@
+
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-
+ 
 const projects = await getCollection('projects', ({ data }) => !data.hidden);
-
-// Sort: explicit order first, then by year descending
+ 
 projects.sort((a, b) => {
   const orderA = a.data.order ?? Infinity;
   const orderB = b.data.order ?? Infinity;
@@ -13,21 +13,40 @@ projects.sort((a, b) => {
   const yearB = b.data.year ?? '';
   return yearB.localeCompare(yearA);
 });
+ 
+function getThumbnail(project: typeof projects[number]): string | null {
+  if (project.data.thumbnail) return project.data.thumbnail;
+  if (project.data.images && project.data.images.length > 0) {
+    return project.data.images[0].src;
+  }
+  return null;
+}
 ---
-
-<BaseLayout title="paige tambornino" pageType="index">
-  <section class="archive">
-    <ul class="archive-list">
-      {projects.map((project) => (
-        <li class="archive-item">
-          <a href={`/projects/${project.id}`}>
-            <span class="archive-title">{project.data.title}</span>
+ 
+<BaseLayout title="Projects" pageType="index">
+  <section class="projects-page">
+    <h1 class="page-title">Projects</h1>
+    <div class="project-grid">
+      {projects.map((project) => {
+        const thumbnail = getThumbnail(project);
+        const size = project.data.thumbnail_size ?? 'medium';
+        return (
+          <a href={`/projects/${project.id}`} class={`project-grid-item project-grid-item--${size}`}>
+            {thumbnail && (
+              <div class="project-grid-image">
+                <img src={thumbnail} alt={project.data.title} loading="lazy" />
+              </div>
+            )}
+            <div class="project-grid-meta">
+              <span class="project-grid-title">{project.data.title}</span>
+              {project.data.year && (
+                <span class="project-grid-year">{project.data.year}</span>
+              )}
+            </div>
           </a>
-          {project.data.year && (
-            <span class="archive-year">{project.data.year}</span>
-          )}
-        </li>
-      ))}
-    </ul>
+        );
+      })}
+    </div>
   </section>
 </BaseLayout>
+ 
