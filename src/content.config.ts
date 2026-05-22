@@ -31,5 +31,15 @@ const process = defineCollection({
   }),
 });
  
-export const collections = { projects, process };
+const text = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/text' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    link: z.string().optional(),
+    image: z.string().optional(),
+  }),
+});
+ 
+export const collections = { projects, process, text };
  
