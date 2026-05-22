@@ -1,1 +1,66 @@
-
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+ 
+const textPosts = await getCollection('text');
+ 
+textPosts.sort((a, b) => {
+  const dateA = a.data.date ?? '';
+  const dateB = b.data.date ?? '';
+  return dateB.localeCompare(dateA);
+});
+ 
+const postsWithContent = await Promise.all(
+  textPosts.map(async (post) => {
+    const { Content } = await render(post);
+    const hasBody = post.body && post.body.trim().length > 0;
+    return { post, Content, hasBody };
+  })
+);
+---
+ 
+<BaseLayout title="Text" pageType="text">
+  <section class="text-page">
+    <div class="text-bio">
+      <p>A short biography goes here. Two or three sentences about you and your work.</p>
+      <p>Born in [Place]. Lives and works in [City].</p>
+      <p>MFA, [School], [Year].</p>
+      <p>
+        <a href="mailto:hello@example.com">hello@example.com</a><br />
+        <a href="https://instagram.com/yourhandle" rel="me">Instagram</a>
+      </p>
+    </div>
+ 
+    <div class="text-divider" aria-hidden="true">¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸</div>
+ 
+    {postsWithContent.length > 0 && (
+      <div class="text-feed">
+        {postsWithContent.map(({ post, Content, hasBody }) => (
+          <article class="text-post">
+            <p class="text-post-date">{post.data.date}</p>
+            <h2 class="text-post-title">
+              {post.data.link ? (
+                <a href={post.data.link} target="_blank" rel="noopener noreferrer">
+                  {post.data.title} <span class="text-post-arrow" aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                post.data.title
+              )}
+            </h2>
+            {post.data.image && (
+              <div class="text-post-image">
+                <img src={post.data.image} alt={post.data.title} loading="lazy" />
+              </div>
+            )}
+            {hasBody && (
+              <div class="text-post-body">
+                <Content />
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+ 
