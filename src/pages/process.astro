@@ -1,1 +1,85 @@
-
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+ 
+const processImages = await getCollection('process');
+const projects = await getCollection('projects', ({ data }) => !data.hidden);
+ 
+// Sort process images reverse-chronologically by date
+processImages.sort((a, b) => {
+  const dateA = a.data.date ?? '';
+  const dateB = b.data.date ?? '';
+  return dateB.localeCompare(dateA);
+});
+ 
+// Normalize for forgiving project matching (case-insensitive, whitespace-flexible)
+function normalize(s: string): string {
+  return s.toLowerCase().replace(/\s+/g, ' ').trim();
+}
+ 
+// For each process image, find which project title it matches (if any)
+function findMatchingProjectTitle(imageProject?: string): string | null {
+  if (!imageProject) return null;
+  const target = normalize(imageProject);
+  const match = projects.find((p) => normalize(p.data.title) === target);
+  return match ? match.data.title : null;
+}
+ 
+// Sort projects to use stable order on the filter row (same logic as homepage)
+const sortedProjects = [...projects].sort((a, b) => {
+  const orderA = a.data.order ?? Infinity;
+  const orderB = b.data.order ?? Infinity;
+  if (orderA !== orderB) return orderA - orderB;
+  const yearA = a.data.year ?? '';
+  const yearB = b.data.year ?? '';
+  return yearB.localeCompare(yearA);
+});
+---
+ 
+<BaseLayout title="Process" pageType="process">
+  <section class="process-page">
+    <nav class="process-filter" aria-label="Filter by project">
+      <button class="process-filter-link active" data-filter="all" type="button">All</button>
+      {sortedProjects.map((p) => (
+        <button class="process-filter-link" data-filter={p.data.title} type="button">{p.data.title}</button>
+      ))}
+    </nav>
+ 
+    <div class="process-grid">
+      {processImages.map((item) => {
+        const matchedTitle = findMatchingProjectTitle(item.data.project);
+        return (
+          <div class="process-grid-item" data-project={matchedTitle ?? ''}>
+            <img src={item.data.image} alt={item.data.alt ?? ''} loading="lazy" />
+          </div>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>
+ 
+<script>
+  const filterLinks = document.querySelectorAll<HTMLButtonElement>('.process-filter-link');
+  const gridItems = document.querySelectorAll<HTMLElement>('.process-grid-item');
+ 
+  filterLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      const filter = link.getAttribute('data-filter') ?? 'all';
+ 
+      // Update active state
+      filterLinks.forEach((l) => l.classList.remove('active'));
+      link.classList.add('active');
+ 
+      // Show/hide grid items
+      gridItems.forEach((item) => {
+        if (filter === 'all') {
+          item.style.display = '';
+        } else {
+          const itemProject = item.getAttribute('data-project') ?? '';
+          item.style.display = itemProject === filter ? '' : 'none';
+        }
+      });
+    });
+  });
+</script>
+ 
