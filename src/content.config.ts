@@ -20,5 +20,16 @@ const projects = defineCollection({
   }),
 });
  
-export const collections = { projects };
+const process = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/process' }),
+  schema: z.object({
+    image: z.string(),
+    alt: z.string().optional(),
+    project: z.string().optional(),
+    date: z.string().optional(),
+    caption: z.string().optional(),
+  }),
+});
+ 
+export const collections = { projects, process };
  
