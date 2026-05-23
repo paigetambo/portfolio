@@ -22,14 +22,13 @@ const postsWithContent = await Promise.all(
 <BaseLayout title="Text" pageType="text">
   <section class="text-page">
     <div class="text-bio">
-      <p>I don't have much to say about myself right now.</p>
-      <p>Born in [Minneapolis]. Lives and works in [Chicago].</p>
-      <p>M.Arch, [The University of Illinois Chicago], [current].</p>
-     <p>
-  <a href="mailto:paige.tambornino@gmail.com">paige.tambornino@gmail.com</a><br />
-  <a href="https://instagram.com/tambbo" rel="tambbo">Instagram</a><br />
-  <a href="https://www.are.na/p-t-13ugvzlwbkm/index" target="_blank" rel="noopener noreferrer">Are.na</a>
-     </p>
+      <p>A short biography goes here. Two or three sentences about you and your work.</p>
+      <p>Born in [Place]. Lives and works in [City].</p>
+      <p>MFA, [School], [Year].</p>
+      <p>
+        <a href="mailto:hello@example.com">hello@example.com</a><br />
+        <a href="https://instagram.com/yourhandle" rel="me">Instagram</a>
+      </p>
     </div>
  
     <div class="text-divider" aria-hidden="true">¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸¸,ø¤°`°¤ø,¸</div>
@@ -49,7 +48,7 @@ const postsWithContent = await Promise.all(
               )}
             </h2>
             {post.data.image && (
-              <div class="text-post-image">
+              <div class="text-post-image" style={post.data.image_width ? `max-width: ${post.data.image_width}` : undefined}>
                 <img src={post.data.image} alt={post.data.title} loading="lazy" />
               </div>
             )}
