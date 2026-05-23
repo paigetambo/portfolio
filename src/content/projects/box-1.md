@@ -10,7 +10,7 @@ thumbnail_size: "large"
 
 images:
 
-  - src: "/images/red-room-1.jpg"
+  - src: "/images/box-1-project-1.png"
 
     alt: "Box 1"
 
