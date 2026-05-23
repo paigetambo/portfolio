@@ -1,11 +1,11 @@
 ---
 title: "basket 1"
 year: "2024"
-description: "weaving with clay."
+description: "basket 1."
 order: 0
 images:
   - src: "/images/basket-1-gif.gif"
     alt: "Rotating view of basket 1"
-    caption: "basket 1, 2024. earthenware."
     width: "400px"
 ---
+earthenware. 
