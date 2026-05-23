@@ -10,5 +10,11 @@ images:
   - src: "/images/basket-1-project-1.png"
     alt: "basket 1"
     width: "50%"
+  - src: "/images/basket-1-project-2.jpeg"
+    alt: "basket 1"
+    width: "50%"
+  - src: "/images/basket-1-project-3.jpeg"
+    alt: "basket 1"
+    width "50%"
 ---
 earthenware. 
