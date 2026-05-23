@@ -1,3 +1,4 @@
+
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
  
@@ -38,6 +39,7 @@ const text = defineCollection({
     date: z.string(),
     link: z.string().optional(),
     image: z.string().optional(),
+    image_width: z.string().optional(),
   }),
 });
  
