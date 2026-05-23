@@ -1,5 +1,5 @@
 ---
-title: "Box 1"
+title: "box 1"
 year: "2024"
 description: "sort of a box."
 order: 0
